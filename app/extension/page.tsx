@@ -106,15 +106,22 @@ export default function Extension() {
             Install the Rtrvr extension to use AI agent capabilities on any website
           </p>
           <motion.a
-            href="/extension/rtrvr-extension.zip"
-            download
+            href="https://github.com/higanste/AiAgent/archive/refs/heads/main.zip"
+            download="rtrvr-extension.zip"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-colors"
+            onClick={() => {
+              // Also provide direct link to extension folder
+              window.open('https://github.com/higanste/AiAgent/tree/main/extension', '_blank');
+            }}
           >
             <Download className="w-5 h-5" />
-            <span>Download Extension</span>
+            <span>Download Extension (GitHub)</span>
           </motion.a>
+          <p className="text-sm text-white/60 mt-4">
+            After downloading, extract the ZIP and navigate to the <code className="bg-white/10 px-2 py-1 rounded">extension</code> folder
+          </p>
         </motion.div>
 
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 mb-12">
@@ -148,22 +155,33 @@ export default function Extension() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 backdrop-blur-lg rounded-2xl p-8 border border-white/20"
+          className="bg-gradient-to-r from-green-600/20 to-blue-600/20 backdrop-blur-lg rounded-2xl p-8 border border-white/20"
         >
           <h2 className="text-2xl font-bold text-white mb-4">
-            ⚠️ Coming Soon
+            ✅ Extension Ready!
           </h2>
           <p className="text-white/80 mb-4">
-            The extension is currently in development and will be available for download soon.
-            Check back later or use the web version in the meantime!
+            The extension is fully functional and ready to use! Download the repository from GitHub,
+            extract it, and follow the installation steps above. The extension folder contains everything you need.
           </p>
-          <Link
-            href="/"
-            className="inline-flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors"
-          >
-            <span>Go to Web Version</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="https://github.com/higanste/AiAgent"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors"
+            >
+              <span>View on GitHub</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <Link
+              href="/"
+              className="inline-flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors"
+            >
+              <span>Go to Web Version</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </motion.div>
       </div>
     </div>

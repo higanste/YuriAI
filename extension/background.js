@@ -5,36 +5,57 @@ const DEFAULT_MODEL = 'google/gemini-pro';
 
 // Listen for messages from content script or popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  // Handle chat requests
   if (request.action === 'chat') {
     handleChat(request.messages, request.model)
-      .then(response => sendResponse({ success: true, response }))
-      .catch(error => sendResponse({ success: false, error: error.message }));
+      .then(response => {
+        sendResponse({ success: true, response });
+      })
+      .catch(error => {
+        console.error('Chat error in background:', error);
+        sendResponse({ success: false, error: error.message || 'Unknown error' });
+      });
     return true; // Keep channel open for async response
   }
 
+  // Handle action execution
   if (request.action === 'executeAction') {
     const tabId = request.tabId || sender?.tab?.id;
     if (!tabId) {
       sendResponse({ success: false, error: 'No tab ID provided' });
-      return;
+      return false;
     }
     executeAction(request.actionType, request.params, tabId)
-      .then(result => sendResponse({ success: true, result }))
-      .catch(error => sendResponse({ success: false, error: error.message }));
-    return true;
+      .then(result => {
+        sendResponse({ success: true, result });
+      })
+      .catch(error => {
+        console.error('Action execution error:', error);
+        sendResponse({ success: false, error: error.message || 'Unknown error' });
+      });
+    return true; // Keep channel open for async response
   }
 
+  // Handle data extraction
   if (request.action === 'extractData') {
     const tabId = request.tabId || sender?.tab?.id;
     if (!tabId) {
       sendResponse({ success: false, error: 'No tab ID provided' });
-      return;
+      return false;
     }
     extractData(tabId, request.selector)
-      .then(data => sendResponse({ success: true, data }))
-      .catch(error => sendResponse({ success: false, error: error.message }));
-    return true;
+      .then(data => {
+        sendResponse({ success: true, data });
+      })
+      .catch(error => {
+        console.error('Data extraction error:', error);
+        sendResponse({ success: false, error: error.message || 'Unknown error' });
+      });
+    return true; // Keep channel open for async response
   }
+
+  // Return false if no handler matched
+  return false;
 });
 
 async function handleChat(messages, model = DEFAULT_MODEL) {

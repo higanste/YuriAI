@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "package-extension": "node scripts/package-extension.js"
+    "package-extension": "node scripts/package-extension.js",
+    "create-extension-zip": "node scripts/create-extension-zip.js"
   },
   "dependencies": {
     "next": "^14.0.4",

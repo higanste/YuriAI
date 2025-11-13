@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Rtrvr - AI Agent for Web',
   description: 'AI-powered agent that works across all websites',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({

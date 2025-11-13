@@ -3,39 +3,47 @@ import { callOpenRouter } from '@/lib/openrouter'
 
 export async function POST(request: NextRequest) {
   try {
-    const { messages, model } = await request.json()
+    const body = await request.json()
+    const { messages, model } = body
 
-    if (!messages || !Array.isArray(messages)) {
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json(
-        { error: 'Messages array is required' },
+        { error: 'Messages array is required and must not be empty' },
         { status: 400 }
       )
     }
 
-    // Enhanced system prompt for web agent capabilities
-    const enhancedMessages = messages.map((msg: any, index: number) => {
-      if (index === 0 && msg.role === 'system') {
-        return {
-          ...msg,
-          content: `${msg.content}\n\nYou are an AI web agent. When users ask you to interact with websites, provide clear instructions or JSON responses with actions like:
-- {"action": "click", "selector": "button.search"}
-- {"action": "type", "selector": "input[name='q']", "text": "search term"}
-- {"action": "extract", "selector": ".results"}
-- {"action": "navigate", "url": "https://example.com"}
-
-Always be helpful and provide actionable responses.`
-        }
-      }
-      return msg
-    })
+    // Add system message if not present
+    let enhancedMessages = [...messages]
+    const hasSystemMessage = messages.some((msg: any) => msg.role === 'system')
+    
+    if (!hasSystemMessage) {
+      enhancedMessages = [
+        {
+          role: 'system',
+          content: 'You are a helpful AI assistant. Provide clear and helpful responses.'
+        },
+        ...messages
+      ]
+    }
 
     const response = await callOpenRouter(enhancedMessages, model)
+
+    if (!response || response.trim() === '') {
+      return NextResponse.json(
+        { error: 'Empty response from AI' },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json({ response })
   } catch (error: any) {
     console.error('Chat API error:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to get AI response' },
+      { 
+        error: error.message || 'Failed to get AI response',
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     )
   }
