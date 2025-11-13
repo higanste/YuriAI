@@ -168,6 +168,11 @@ async function getPageInfo() {
 }
 
 async function executeAction(actionData) {
+  if (!currentTab || !currentTab.id) {
+    showStatus('No active tab found', 'error');
+    return;
+  }
+
   try {
     const result = await chrome.runtime.sendMessage({
       action: 'executeAction',
@@ -180,13 +185,18 @@ async function executeAction(actionData) {
       }
     });
 
-    if (result.success) {
+    if (result && result.success) {
       showStatus('Action executed successfully', 'success');
+      // Optionally add a message about what was done
+      if (result.result && result.result.message) {
+        addMessage(`✓ ${result.result.message}`, 'assistant');
+      }
     } else {
-      showStatus(`Action failed: ${result.error}`, 'error');
+      showStatus(`Action failed: ${result?.error || 'Unknown error'}`, 'error');
     }
   } catch (error) {
     showStatus(`Error executing action: ${error.message}`, 'error');
+    console.error('Action execution error:', error);
   }
 }
 
