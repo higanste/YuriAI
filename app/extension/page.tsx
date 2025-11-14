@@ -1,9 +1,9 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Download, Sparkles, CheckCircle, ArrowRight, ChevronRight, ChevronLeft, FileArchive, FolderOpen, Settings, Puzzle, Zap } from 'lucide-react'
+import { Download, Sparkles, CheckCircle, ChevronRight, ChevronLeft, FileArchive, FolderOpen, Settings, Puzzle, Zap } from 'lucide-react'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export default function Extension() {
   const [currentStep, setCurrentStep] = useState(0)
@@ -16,7 +16,7 @@ export default function Extension() {
       icon: Download,
       title: 'Download the Extension',
       description: 'Click the download button below to get the extension ZIP file',
-      details: 'The extension will download as a ZIP file named "rtrvr-extension.zip"',
+      details: 'The extension will download as a ZIP file named "yuriai-extension.zip"',
       color: 'from-blue-500 to-cyan-500',
     },
     {
@@ -63,7 +63,7 @@ export default function Extension() {
       number: 7,
       icon: Zap,
       title: 'Start Using!',
-      description: 'The extension is now installed! Click the Rtrvr icon in your browser toolbar to start using it',
+      description: 'The extension is now installed! Click the YuriAI icon in your browser toolbar to start using it',
       details: 'You can now use AI agent capabilities on any website',
       color: 'from-yellow-500 to-orange-500',
     },
@@ -75,14 +75,14 @@ export default function Extension() {
       const response = await fetch('/api/extension/download')
       
       if (!response.ok) {
-        throw new Error('Download failed')
+        throw new Error(`Download failed: ${response.status}`)
       }
 
       const blob = await response.blob()
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = 'rtrvr-extension.zip'
+      a.download = 'yuriai-extension.zip'
       document.body.appendChild(a)
       a.click()
       window.URL.revokeObjectURL(url)
@@ -90,7 +90,7 @@ export default function Extension() {
       
       setDownloaded(true)
       setTimeout(() => {
-        setCurrentStep(1) // Move to next step after download
+        setCurrentStep(1)
       }, 1000)
     } catch (error) {
       console.error('Download error:', error)
@@ -123,7 +123,7 @@ export default function Extension() {
               className="flex items-center space-x-2"
             >
               <Sparkles className="w-6 h-6 text-purple-400" />
-              <span className="text-xl font-bold text-white">Rtrvr</span>
+              <span className="text-xl font-bold text-white">YuriAI</span>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -154,7 +154,6 @@ export default function Extension() {
       </nav>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -164,10 +163,9 @@ export default function Extension() {
             Microsoft Edge Extension
           </h1>
           <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8">
-            Install the Rtrvr extension to use AI agent capabilities on any website
+            Install the YuriAI extension to use AI agent capabilities on any website
           </p>
           
-          {/* Download Button */}
           <motion.button
             onClick={handleDownload}
             disabled={downloading || downloaded}
@@ -200,9 +198,7 @@ export default function Extension() {
           </motion.button>
         </motion.div>
 
-        {/* Step-by-Step Guide */}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 mb-8">
-          {/* Step Indicator */}
           <div className="flex items-center justify-center mb-8">
             {steps.map((step, index) => (
               <div key={index} className="flex items-center">
@@ -233,7 +229,6 @@ export default function Extension() {
             ))}
           </div>
 
-          {/* Current Step Content */}
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}
@@ -268,7 +263,6 @@ export default function Extension() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Navigation Buttons */}
           <div className="flex justify-center items-center space-x-4 mt-8">
             <motion.button
               onClick={prevStep}
@@ -306,7 +300,6 @@ export default function Extension() {
           </div>
         </div>
 
-        {/* All Steps Overview */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

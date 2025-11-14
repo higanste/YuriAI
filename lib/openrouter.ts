@@ -50,7 +50,7 @@ export async function callOpenRouter(
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
         'HTTP-Referer': siteUrl,
-        'X-Title': 'Rtrvr AI Agent',
+        'X-Title': 'YuriAI - AI Agent',
       },
       body: JSON.stringify({
         model: model || DEFAULT_MODEL,

@@ -66,7 +66,7 @@ async function handleChat(messages, model = DEFAULT_MODEL) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
         'HTTP-Referer': 'https://yuriai.vercel.app',
-        'X-Title': 'Rtrvr AI Agent Extension',
+        'X-Title': 'YuriAI - AI Agent Extension',
       },
       body: JSON.stringify({
         model,

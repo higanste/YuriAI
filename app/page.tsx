@@ -105,7 +105,7 @@ export default function Home() {
               className="flex items-center space-x-2"
             >
               <Sparkles className="w-6 h-6 text-purple-400" />
-              <span className="text-xl font-bold text-white">Rtrvr</span>
+              <span className="text-xl font-bold text-white">YuriAI</span>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}

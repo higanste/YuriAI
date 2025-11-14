@@ -39,7 +39,7 @@ export default function About() {
               className="flex items-center space-x-2"
             >
               <Sparkles className="w-6 h-6 text-purple-400" />
-              <span className="text-xl font-bold text-white">Rtrvr</span>
+              <span className="text-xl font-bold text-white">YuriAI</span>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -75,9 +75,9 @@ export default function About() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="text-5xl font-bold text-white mb-4">About Rtrvr</h1>
+          <h1 className="text-5xl font-bold text-white mb-4">About YuriAI</h1>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Rtrvr is an AI-powered agent that helps you interact with any website
+            YuriAI is an AI-powered agent that helps you interact with any website
             using natural language. No login required, fully cloud-based, and works
             seamlessly across all platforms.
           </p>
@@ -108,13 +108,13 @@ export default function About() {
           <h2 className="text-3xl font-bold text-white mb-4">How It Works</h2>
           <div className="space-y-4 text-white/70">
             <p>
-              Rtrvr uses advanced AI models to understand your natural language
+              YuriAI uses advanced AI models to understand your natural language
               commands and interact with websites on your behalf. Simply describe
               what you want to do, and the AI agent will handle the rest.
             </p>
             <p>
               Whether you need to search for information, extract data, fill forms,
-              or perform any web-based task, Rtrvr makes it as simple as typing
+              or perform any web-based task, YuriAI makes it as simple as typing
               a message.
             </p>
             <p>
