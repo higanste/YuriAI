@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "package-extension": "node scripts/package-extension.js",
-    "create-extension-zip": "node scripts/create-extension-zip.js"
+    "create-extension-zip": "node scripts/create-extension-zip.js",
+    "upload-extension": "node scripts/upload-extension-to-supabase.js"
   },
   "dependencies": {
     "next": "^14.0.4",

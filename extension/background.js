@@ -1,4 +1,4 @@
-// Background service worker for Rtrvr extension
+// Background service worker for YuriAI extension
 
 const OPENROUTER_API_KEY = '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';
 const DEFAULT_MODEL = 'google/gemini-pro';
@@ -166,6 +166,6 @@ async function extractData(tabId, selector) {
 
 // Install handler
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('Rtrvr extension installed');
+  console.log('YuriAI extension installed');
 });
 
